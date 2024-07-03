@@ -7,7 +7,7 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "webscrapy001"
+BOT_NAME = "scrap_to_books"
 
 SPIDER_MODULES = ["webscrapy001.spiders"]
 NEWSPIDER_MODULE = "webscrapy001.spiders"
@@ -62,9 +62,10 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "webscrapy001.pipelines.Webscrapy001Pipeline": 300,
-#}
+ITEM_PIPELINES = {
+   "webscrapy001.pipelines.BookItemValidationPipeline": 300,
+   "webscrapy001.pipelines.PostgresPipeline": 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -91,3 +92,12 @@ ROBOTSTXT_OBEY = True
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
+
+
+# Postgres settings
+POSTGRES_HOST = "localhost"
+POSTGRES_USERNAME = "books"
+POSTGRES_PASSWORD = "books"
+POSTGRES_DATABASE = "to_books"
+POSTGRES_PORT = 5400
+POSTGRES_BATCH_SIZE = 1000
